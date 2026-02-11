@@ -7,11 +7,14 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "run"
+    "test": "run",
+    "go": "nodemon --env-file=.env src/index.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
-    "mongoose": "^9.2.0"
+    "mongoose": "^9.2.0",
+    "nodemon": "^3.1.11"
   }
 }
