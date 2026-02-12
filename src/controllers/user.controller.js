@@ -1,4 +1,5 @@
 import User from '../models/user.model.js';
+import jwt from 'jsonwebtoken';
 
 const registerUser = async (req, res) => {
     try{
@@ -60,8 +61,15 @@ const loginUser = async (req, res) => {
 
         if (!isMatch) return res.status(400).json({message:"Incorrect Password!"});
 
+        const token = jwt.sign(
+            {id: user._id},
+            process.env.JWT_SECRET,
+            {expiresIn: "7d"}
+        );
+
         return res.status(200).json({
             message: "User Logged in",
+            token,
             user: {
                 id: user._id,
                 email: user.email,
@@ -74,5 +82,22 @@ const loginUser = async (req, res) => {
     }
 }
 
+const logoutUser = async (req, res) => {
+    try{
+        const {email} = req.body;
 
-export {registerUser, loginUser};
+        const user = await User.findOne({email})
+
+        if (!user) {
+            return res.status(400).json({message: "User not found"});
+        }
+
+        return res.status(200).json({message: "Logout Successful"});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Internal Server Error"});
+    }
+}
+
+
+export {registerUser, loginUser, logoutUser};
