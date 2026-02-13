@@ -25,7 +25,7 @@ const getTweets = async (req, res) => {
                 }
                 h1 {
                     text-align: center;
-                    color: #9a8888;
+                    color: #d9d9d9;
                 }
                 .tweet-container {
                     max-width: 600px;
