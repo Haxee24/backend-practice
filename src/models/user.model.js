@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, {Schema} from "mongoose";
 import bcrypt from 'bcrypt'
 
 const userSchema = new mongoose.Schema(
@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema(
         loggedIn: {
             type: Boolean,
             default: false
+        },
+        tweets: {
+            type: [Schema.Types.ObjectId],
+            ref: "Tweet",
+            default: []
         }
     }, {timestamps: true}
 );
